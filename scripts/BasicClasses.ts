@@ -3,7 +3,7 @@ class InputField implements Field{
     label: string;
     fieldType: FieldType;
     value: string;
-    render(){return this.label, this.fieldType}
+    render: () => HTMLDivElement;
 }
 
 class TextAreaField implements Field{
@@ -11,7 +11,7 @@ class TextAreaField implements Field{
     label: string;
     fieldType: FieldType;
     value: string;
-    render(){return this.label, this.fieldType};
+    render: () => HTMLDivElement;
 }
 
 class DateField implements Field{
@@ -19,7 +19,7 @@ class DateField implements Field{
     label: string;
     fieldType: FieldType;
     value: string;
-    render(){return this.label, this.fieldType};
+    render: () => HTMLDivElement;
 }
 
 class EmailField implements Field{
@@ -27,7 +27,7 @@ class EmailField implements Field{
     label: string;
     fieldType: FieldType;
     value: string;
-    render(){return this.label, this.fieldType};
+    render: () => HTMLDivElement;
 }
 
 class SelectedField implements Field{
@@ -35,7 +35,7 @@ class SelectedField implements Field{
     label: string;
     fieldType: FieldType;
     value: string;
-    render(){return this.label, this.fieldType};
+    render: () => HTMLDivElement;
 }
 
 class CheckboxField implements Field{
@@ -43,5 +43,5 @@ class CheckboxField implements Field{
     label: string;
     fieldType: FieldType;
     value: string;
-    render(){return this.label, this.fieldType};
+    render: () => HTMLDivElement;
 }

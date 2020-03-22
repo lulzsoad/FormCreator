@@ -3,6 +3,6 @@ interface Field {
     label: string;
     fieldType: FieldType;
     value: string;
-    render(): void;
+    render:() => HTMLDivElement;
 }
 
