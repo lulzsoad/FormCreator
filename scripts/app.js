@@ -71,7 +71,8 @@ var CheckboxField = /** @class */ (function () {
 }());
 var Form = /** @class */ (function () {
     function Form(fieldTab) {
-        this.result = ' ';
+        this.result = ' '; // render result
+        this.getValueResult = ' ';
         this.fieldTab = fieldTab;
     }
     /*
@@ -84,7 +85,11 @@ var Form = /** @class */ (function () {
         this.fieldTab[5] = checkboxField;
     }
     */
-    Form.prototype.getVaue = function () {
+    Form.prototype.getValue = function () {
+        for (var i = 0; i < this.fieldTab.length; i++) {
+            this.getValueResult += "<p>" + this.fieldTab[i].label + ": " + this.fieldTab[i].value + "</p>";
+        }
+        document.getElementById('result').innerHTML = this.getValueResult;
     };
     Form.prototype.render = function () {
         for (var i = 0; i < this.fieldTab.length; i++) {
@@ -130,6 +135,7 @@ var App = /** @class */ (function () {
     }
     return App;
 }());
+var btnSend = document.querySelector('#btn-submit');
 var name1 = new InputField('name', 'Imię', FieldType.Input, "Łukasz");
 var lastName = new InputField('lastName', 'Nazwisko', FieldType.Input, "Łopata");
 var email = new EmailField('email', 'E-mail', FieldType.Email, "lukasz_lopata@wp.pl");
@@ -140,3 +146,4 @@ var notes = new TextAreaField('notes', 'Uwagi', FieldType.TextArea, '');
 var fieldTab = [name1, lastName, email, fieldOfStudy, eLearningPreferation, notes];
 var form = new Form(fieldTab);
 form.render();
+form.getValue();

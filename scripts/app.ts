@@ -119,7 +119,8 @@ class CheckboxField implements Field{
 
 class Form{
     fieldTab: Array<Field>;
-    result: string = ' ';
+    result: string = ' '; // render result
+    getValueResult: string = ' ';
 
     constructor (fieldTab: Array<Field>) {
         this.fieldTab = fieldTab;
@@ -135,8 +136,12 @@ class Form{
     }
     */
 
-    getVaue(){
-        
+    getValue(){
+        for(let i = 0; i < this.fieldTab.length; i++) {
+            this.getValueResult += `<p>${this.fieldTab[i].label}: ${this.fieldTab[i].value}</p>`
+        }
+
+        document.getElementById('result').innerHTML = this.getValueResult;
     }
 
     render(){
@@ -197,6 +202,8 @@ class App {
     */
     
 }
+    let btnSend = document.querySelector('#btn-submit');
+    
 
     let name1: Field = new InputField('name', 'Imię', FieldType.Input, "Łukasz");
     let lastName: Field = new InputField('lastName', 'Nazwisko', FieldType.Input, "Łopata");
@@ -210,3 +217,4 @@ class App {
 
     let form = new Form(fieldTab);
     form.render();
+    form.getValue();
