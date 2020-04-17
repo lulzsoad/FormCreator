@@ -51,11 +51,12 @@ var EmailField = /** @class */ (function () {
     return EmailField;
 }());
 var SelectedField = /** @class */ (function () {
-    function SelectedField(name, label, fieldType, value) {
+    function SelectedField(name, label, fieldType, value, options) {
         this.name = name;
         this.label = label;
         this.fieldType = fieldType;
         this.value = value;
+        this.options = options;
     }
     return SelectedField;
 }());
@@ -109,7 +110,11 @@ var Form = /** @class */ (function () {
                     this.result += "<p>" + this.fieldTab[i].label + ": <input name=\"" + this.fieldTab[i].name + "\", type=\"email\", value=\"" + this.fieldTab[i].value + "\"></p>";
                     break;
                 case 4:
-                    this.result += "<p>" + this.fieldTab[i].label + ": <select name=\"" + this.fieldTab[i].name + "\" id=\"" + this.fieldTab[i].name + "\"><option>" + this.fieldTab[i].value + "</option></select></p>";
+                    this.result += "<p>" + this.fieldTab[i].label + ": <select name=\"" + this.fieldTab[i].name + "\" id=\"" + this.fieldTab[i].name + "\">";
+                    for (var j = 0; j < this.fieldTab[i].options.length; j++) {
+                        this.result += "<option id=\"" + this.fieldTab[i].options[j] + "\">" + this.fieldTab[i].options[j] + "</option>";
+                    }
+                    this.result += "</select></p>";
                     break;
                 case 5:
                     this.result += "<p>" + this.fieldTab[i].label + ": <input name=\"" + this.fieldTab[i].name + "\", type=\"checkbox\", value=\"" + this.fieldTab[i].value + "\"></p>";
@@ -122,21 +127,14 @@ var Form = /** @class */ (function () {
 }());
 var App = /** @class */ (function () {
     function App() {
-        this.name = new InputField('name', 'Imię', FieldType.Input, "Łukasz");
-        this.lastName = new InputField('lastName', 'Nazwisko', FieldType.Input, "Łopata");
-        this.email = new EmailField('email', 'E-mail', FieldType.Email, "lukasz_lopata@wp.pl");
-        this.fieldOfStudy = new SelectedField('fieldOfStudy', 'Kierunek studiów', FieldType.SelectField, 'Informatyka');
-        this.eLearningPreferation = new CheckboxField('eLearn', 'Czy preferujesz e-learning?', FieldType.CheckBox, '');
-        this.notes = new TextAreaField('notes', 'Uwagi', FieldType.TextArea, '');
-        this.fieldTab = [this.name, this.lastName, this.email, this.fieldOfStudy, this.eLearningPreferation, this.notes];
-        this.form = new Form(this.fieldTab).render();
     }
     return App;
 }());
 var name1 = new InputField('name', 'Imię', FieldType.Input, "Łukasz");
 var lastName = new InputField('lastName', 'Nazwisko', FieldType.Input, "Łopata");
 var email = new EmailField('email', 'E-mail', FieldType.Email, "lukasz_lopata@wp.pl");
-var fieldOfStudy = new SelectedField('fieldOfStudy', 'Kierunek studiów', FieldType.SelectField, 'Informatyka');
+var options = ['Informatyka', 'Ekonometria', 'Plastyka'];
+var fieldOfStudy = new SelectedField('fieldOfStudy', 'Kierunek studiów', FieldType.SelectField, options[0], options);
 var eLearningPreferation = new CheckboxField('eLearn', 'Czy preferujesz e-learning?', FieldType.CheckBox, '');
 var notes = new TextAreaField('notes', 'Uwagi', FieldType.TextArea, '');
 var fieldTab = [name1, lastName, email, fieldOfStudy, eLearningPreferation, notes];

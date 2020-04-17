@@ -15,6 +15,7 @@ interface Field {
     label: string;
     fieldType: FieldType;
     value: string;
+    options?: Array<string>;
     render:() => HTMLDivElement;
 }
 
@@ -89,13 +90,15 @@ class SelectedField implements Field{
     label: string;
     fieldType: FieldType;
     value: string;
+    options: Array<string>;
     render: () => HTMLDivElement;
 
-    constructor (name: string, label: string, fieldType: FieldType, value: string) {
+    constructor (name: string, label: string, fieldType: FieldType, value: string, options: Array<string>) {
         this.name = name;
         this.label = label;
         this.fieldType = fieldType;
         this.value = value;
+        this.options = options;
     }
 }
 
@@ -160,13 +163,18 @@ class Form{
                     this.result += `<p>${this.fieldTab[i].label}: <input name="${this.fieldTab[i].name}", type="email", value="${this.fieldTab[i].value}"></p>`;
                     break;
                 case 4:
-                    this.result += `<p>${this.fieldTab[i].label}: <select name="${this.fieldTab[i].name}" id="${this.fieldTab[i].name}"><option>${this.fieldTab[i].value}</option></select></p>`;
+                    this.result += `<p>${this.fieldTab[i].label}: <select name="${this.fieldTab[i].name}" id="${this.fieldTab[i].name}">`;
+                    for(let j = 0; j < this.fieldTab[i].options.length; j++) {
+                        this.result += `<option id="${this.fieldTab[i].options[j]}">${this.fieldTab[i].options[j]}</option>`;
+                    }
+                    this.result += `</select></p>`;
                     break;
                 case 5:
                     this.result += `<p>${this.fieldTab[i].label}: <input name="${this.fieldTab[i].name}", type="checkbox", value="${this.fieldTab[i].value}"></p>`;
                     break;
 
             }
+            
             
         }
 
@@ -175,6 +183,7 @@ class Form{
 }
 
 class App {
+    /*
     name: Field = new InputField('name', 'Imię', FieldType.Input, "Łukasz");
     lastName: Field = new InputField('lastName', 'Nazwisko', FieldType.Input, "Łopata");
     email: Field = new EmailField('email', 'E-mail', FieldType.Email, "lukasz_lopata@wp.pl");
@@ -185,13 +194,15 @@ class App {
     fieldTab: Array<Field> = [this.name, this.lastName, this.email, this.fieldOfStudy, this.eLearningPreferation, this.notes];
 
     form = new Form(this.fieldTab).render();
+    */
     
 }
 
     let name1: Field = new InputField('name', 'Imię', FieldType.Input, "Łukasz");
     let lastName: Field = new InputField('lastName', 'Nazwisko', FieldType.Input, "Łopata");
     let email: Field = new EmailField('email', 'E-mail', FieldType.Email, "lukasz_lopata@wp.pl");
-    let fieldOfStudy: Field = new SelectedField('fieldOfStudy', 'Kierunek studiów', FieldType.SelectField, 'Informatyka');
+    let options: Array<string> = ['Informatyka', 'Ekonometria', 'Plastyka'];
+    let fieldOfStudy: Field = new SelectedField('fieldOfStudy', 'Kierunek studiów', FieldType.SelectField, options[0], options);
     let eLearningPreferation: Field = new CheckboxField('eLearn', 'Czy preferujesz e-learning?', FieldType.CheckBox, '');
     let notes: Field = new TextAreaField('notes', 'Uwagi', FieldType.TextArea, '');
 
