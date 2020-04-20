@@ -1,4 +1,3 @@
-// Enums
 var FieldType;
 (function (FieldType) {
     FieldType[FieldType["Input"] = 0] = "Input";
@@ -87,6 +86,31 @@ var Form = /** @class */ (function () {
     */
     Form.prototype.getValue = function () {
         for (var i = 0; i < this.fieldTab.length; i++) {
+            var inputValue = void 0;
+            if (fieldTab[i].fieldType === 0) {
+                inputValue = document.querySelector("input[name=" + fieldTab[i].name + "]").value;
+            }
+            if (fieldTab[i].fieldType === 1) {
+                inputValue = document.querySelector("textarea[name=" + fieldTab[i].name + "]").value;
+            }
+            if (fieldTab[i].fieldType === 2) {
+                inputValue = document.querySelector("input[name=" + fieldTab[i].name + "]").value;
+            }
+            if (fieldTab[i].fieldType === 3) {
+                inputValue = document.querySelector("input[name=" + fieldTab[i].name + "]").value;
+            }
+            if (fieldTab[i].fieldType === 4) {
+                inputValue = document.querySelector("select[name=" + fieldTab[i].name + "]").value;
+            }
+            if (fieldTab[i].fieldType === 5) {
+                if (document.querySelector("input[name=" + fieldTab[i].name + "]").checked) {
+                    inputValue = "Tak";
+                }
+                else {
+                    inputValue = "Nie";
+                }
+            }
+            this.fieldTab[i].value = inputValue;
             this.getValueResult += "<p>" + this.fieldTab[i].label + ": " + this.fieldTab[i].value + "</p>";
         }
         document.getElementById('result').innerHTML = this.getValueResult;
@@ -103,26 +127,26 @@ var Form = /** @class */ (function () {
             */
             switch (this.fieldTab[i].fieldType) {
                 case 0:
-                    this.result += "<p>" + this.fieldTab[i].label + ": <input name=\"" + this.fieldTab[i].name + "\", type=\"text\", value=\"" + this.fieldTab[i].value + "\"></p>";
+                    this.result += "<p>" + this.fieldTab[i].label + ": <input name=\"" + this.fieldTab[i].name + "\", type=\"text\", value=\"\"></p>";
                     break;
                 case 1:
-                    this.result += "<p>" + this.fieldTab[i].label + ": <textarea name=\"" + this.fieldTab[i].name + "\">" + this.fieldTab[i].value + "</textarea></p>";
+                    this.result += "<p>" + this.fieldTab[i].label + ": <textarea name=\"" + this.fieldTab[i].name + "\"></textarea></p>";
                     break;
                 case 2:
-                    this.result += "<p>" + this.fieldTab[i].label + ": <input name=\"" + this.fieldTab[i].name + "\", type=\"date\", value=\"" + this.fieldTab[i].value + "\"></p>";
+                    this.result += "<p>" + this.fieldTab[i].label + ": <input name=\"" + this.fieldTab[i].name + "\", type=\"date\", value=\"\"></p>";
                     break;
                 case 3:
-                    this.result += "<p>" + this.fieldTab[i].label + ": <input name=\"" + this.fieldTab[i].name + "\", type=\"email\", value=\"" + this.fieldTab[i].value + "\"></p>";
+                    this.result += "<p>" + this.fieldTab[i].label + ": <input name=\"" + this.fieldTab[i].name + "\", type=\"email\", value=\"\"></p>";
                     break;
                 case 4:
-                    this.result += "<p>" + this.fieldTab[i].label + ": <select name=\"" + this.fieldTab[i].name + "\" id=\"" + this.fieldTab[i].name + "\">";
+                    this.result += "<p>" + this.fieldTab[i].label + ": <select name=\"" + this.fieldTab[i].name + "\" id=\"\">";
                     for (var j = 0; j < this.fieldTab[i].options.length; j++) {
                         this.result += "<option id=\"" + this.fieldTab[i].options[j] + "\">" + this.fieldTab[i].options[j] + "</option>";
                     }
                     this.result += "</select></p>";
                     break;
                 case 5:
-                    this.result += "<p>" + this.fieldTab[i].label + ": <input name=\"" + this.fieldTab[i].name + "\", type=\"checkbox\", value=\"" + this.fieldTab[i].value + "\"></p>";
+                    this.result += "<p>" + this.fieldTab[i].label + ": <input name=\"" + this.fieldTab[i].name + "\", type=\"checkbox\", value=\"\"></p>";
                     break;
             }
         }
@@ -146,4 +170,4 @@ var notes = new TextAreaField('notes', 'Uwagi', FieldType.TextArea, '');
 var fieldTab = [name1, lastName, email, fieldOfStudy, eLearningPreferation, notes];
 var form = new Form(fieldTab);
 form.render();
-form.getValue();
+btnSend.addEventListener("click", function () { form.getValue(); });
