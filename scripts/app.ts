@@ -28,6 +28,7 @@ interface Storage {
 // classes
 
 class LocStorage implements Storage {
+    allDocuments: Array<string> = [];    // Contains all saved documents (document ID in string array)
     [name: string]: any;
     length: number;
     clear(): void {
@@ -46,23 +47,40 @@ class LocStorage implements Storage {
         throw new Error("Method not implemented.");
     }
 
-    constructor(){}
+    constructor(){
+        if(!(localStorage.getItem('allDocuments'))){
+            localStorage.setItem('allDocuments', '');
+        }
+        if(localStorage.getItem(`allDocuments`).length < 1){
+            this.allDocuments = [];
+        }
+        else{
+            this.allDocuments = JSON.parse(localStorage.getItem(`allDocuments`));
+        }
+    }
 
     public saveDocument(fieldsValue: any){
+        if(!(localStorage.getItem('allDocuments'))){
+            localStorage.setItem('allDocuments', '');
+            this.allDocuments = [];
+        }
         let idDocument: string;
         let timestamp = Date.now();
         idDocument = timestamp.toString();
         localStorage.setItem(idDocument, JSON.stringify(fieldsValue));
+        this.allDocuments.push(idDocument);
+        localStorage.setItem(`allDocuments`, JSON.stringify(this.allDocuments));
         return idDocument;
     }
 
     loadDocument(idDocument: string){
-        let docValues: Array<string>;
+        let docValues: Array<object>;
+        docValues = JSON.parse(localStorage.getItem(idDocument));
         return docValues;
     }
 
     getDocuments(){
-        let idDocTab: Array<string>;
+        let idDocTab: Array<string> = JSON.parse(localStorage.getItem(`allDocuments`));
         return idDocTab;
     }
 }
@@ -220,8 +238,6 @@ class Form{
 
         document.getElementById('result').innerHTML = this.getValueResult;
         this.getValueResult = " ";
-        let doc = new LocStorage().saveDocument(fieldTab);
-        console.log(doc);
     }
 
     render(){
@@ -297,4 +313,10 @@ class App {
 
     let form = new Form(fieldTab);
     form.render();
-    btnSend.addEventListener("click", function() {form.getValue()})
+    let doc = new LocStorage();
+        
+    btnSend.addEventListener("click", function() {
+        form.getValue();
+        doc.saveDocument(fieldTab);
+        console.log(localStorage.getItem(`allDocuments`));
+    })

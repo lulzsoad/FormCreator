@@ -10,6 +10,16 @@ var FieldType;
 // classes
 var LocStorage = /** @class */ (function () {
     function LocStorage() {
+        this.allDocuments = []; // Contains all saved documents (document ID in string array)
+        if (!(localStorage.getItem('allDocuments'))) {
+            localStorage.setItem('allDocuments', '');
+        }
+        if (localStorage.getItem("allDocuments").length < 1) {
+            this.allDocuments = [];
+        }
+        else {
+            this.allDocuments = JSON.parse(localStorage.getItem("allDocuments"));
+        }
     }
     LocStorage.prototype.clear = function () {
         throw new Error("Method not implemented.");
@@ -27,18 +37,25 @@ var LocStorage = /** @class */ (function () {
         throw new Error("Method not implemented.");
     };
     LocStorage.prototype.saveDocument = function (fieldsValue) {
+        if (!(localStorage.getItem('allDocuments'))) {
+            localStorage.setItem('allDocuments', '');
+            this.allDocuments = [];
+        }
         var idDocument;
         var timestamp = Date.now();
         idDocument = timestamp.toString();
         localStorage.setItem(idDocument, JSON.stringify(fieldsValue));
+        this.allDocuments.push(idDocument);
+        localStorage.setItem("allDocuments", JSON.stringify(this.allDocuments));
         return idDocument;
     };
     LocStorage.prototype.loadDocument = function (idDocument) {
         var docValues;
+        docValues = JSON.parse(localStorage.getItem(idDocument));
         return docValues;
     };
     LocStorage.prototype.getDocuments = function () {
-        var idDocTab;
+        var idDocTab = JSON.parse(localStorage.getItem("allDocuments"));
         return idDocTab;
     };
     return LocStorage;
@@ -150,8 +167,6 @@ var Form = /** @class */ (function () {
         }
         document.getElementById('result').innerHTML = this.getValueResult;
         this.getValueResult = " ";
-        var doc = new LocStorage().saveDocument(fieldTab);
-        console.log(doc);
     };
     Form.prototype.render = function () {
         for (var i = 0; i < this.fieldTab.length; i++) {
@@ -208,4 +223,9 @@ var notes = new TextAreaField('notes', 'Uwagi', FieldType.TextArea, '');
 var fieldTab = [name1, lastName, email, fieldOfStudy, eLearningPreferation, notes];
 var form = new Form(fieldTab);
 form.render();
-btnSend.addEventListener("click", function () { form.getValue(); });
+var doc = new LocStorage();
+btnSend.addEventListener("click", function () {
+    form.getValue();
+    doc.saveDocument(fieldTab);
+    console.log(localStorage.getItem("allDocuments"));
+});
