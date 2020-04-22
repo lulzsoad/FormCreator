@@ -8,6 +8,41 @@ var FieldType;
     FieldType[FieldType["CheckBox"] = 5] = "CheckBox";
 })(FieldType || (FieldType = {}));
 // classes
+var LocStorage = /** @class */ (function () {
+    function LocStorage() {
+    }
+    LocStorage.prototype.clear = function () {
+        throw new Error("Method not implemented.");
+    };
+    LocStorage.prototype.getItem = function (key) {
+        throw new Error("Method not implemented.");
+    };
+    LocStorage.prototype.key = function (index) {
+        throw new Error("Method not implemented.");
+    };
+    LocStorage.prototype.removeItem = function (key) {
+        throw new Error("Method not implemented.");
+    };
+    LocStorage.prototype.setItem = function (key, value) {
+        throw new Error("Method not implemented.");
+    };
+    LocStorage.prototype.saveDocument = function (fieldsValue) {
+        var idDocument;
+        var timestamp = Date.now();
+        idDocument = timestamp.toString();
+        localStorage.setItem(idDocument, JSON.stringify(fieldsValue));
+        return idDocument;
+    };
+    LocStorage.prototype.loadDocument = function (idDocument) {
+        var docValues;
+        return docValues;
+    };
+    LocStorage.prototype.getDocuments = function () {
+        var idDocTab;
+        return idDocTab;
+    };
+    return LocStorage;
+}());
 var FieldLabel = /** @class */ (function () {
     function FieldLabel() {
     }
@@ -114,6 +149,9 @@ var Form = /** @class */ (function () {
             this.getValueResult += "<p>" + this.fieldTab[i].label + ": " + this.fieldTab[i].value + "</p>";
         }
         document.getElementById('result').innerHTML = this.getValueResult;
+        this.getValueResult = " ";
+        var doc = new LocStorage().saveDocument(fieldTab);
+        console.log(doc);
     };
     Form.prototype.render = function () {
         for (var i = 0; i < this.fieldTab.length; i++) {

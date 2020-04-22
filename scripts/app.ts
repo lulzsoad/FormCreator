@@ -19,7 +19,53 @@ interface Field {
     render:() => HTMLDivElement;
 }
 
+interface Storage {
+    saveDocument(fieldsValue: any): string;
+    loadDocument(idDocument: string): any;
+    getDocuments(): Array<string>;
+}
+
 // classes
+
+class LocStorage implements Storage {
+    [name: string]: any;
+    length: number;
+    clear(): void {
+        throw new Error("Method not implemented.");
+    }
+    getItem(key: string): string {
+        throw new Error("Method not implemented.");
+    }
+    key(index: number): string {
+        throw new Error("Method not implemented.");
+    }
+    removeItem(key: string): void {
+        throw new Error("Method not implemented.");
+    }
+    setItem(key: string, value: string): void {
+        throw new Error("Method not implemented.");
+    }
+
+    constructor(){}
+
+    public saveDocument(fieldsValue: any){
+        let idDocument: string;
+        let timestamp = Date.now();
+        idDocument = timestamp.toString();
+        localStorage.setItem(idDocument, JSON.stringify(fieldsValue));
+        return idDocument;
+    }
+
+    loadDocument(idDocument: string){
+        let docValues: Array<string>;
+        return docValues;
+    }
+
+    getDocuments(){
+        let idDocTab: Array<string>;
+        return idDocTab;
+    }
+}
 
 class FieldLabel {
     // Should display label
@@ -164,7 +210,6 @@ class Form{
                     inputValue = "Nie";
                 }
             }
-            
 
             this.fieldTab[i].value = inputValue;
             
@@ -174,6 +219,9 @@ class Form{
         }
 
         document.getElementById('result').innerHTML = this.getValueResult;
+        this.getValueResult = " ";
+        let doc = new LocStorage().saveDocument(fieldTab);
+        console.log(doc);
     }
 
     render(){
