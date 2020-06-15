@@ -1,5 +1,6 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CheckboxField = exports.SelectedField = exports.EmailField = exports.DateField = exports.TextAreaField = exports.InputField = void 0;
 var InputField = /** @class */ (function () {
     function InputField(name, label, fieldType, value) {
         this.name = name;

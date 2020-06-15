@@ -1,5 +1,6 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Form = void 0;
 var Form = /** @class */ (function () {
     function Form(fieldTab) {
         this.result = ' '; // render result

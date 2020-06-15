@@ -1,5 +1,6 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.LocStorage = void 0;
 var LocStorage = /** @class */ (function () {
     function LocStorage() {
         this.allDocuments = []; // Contains all saved documents (document ID in string array)

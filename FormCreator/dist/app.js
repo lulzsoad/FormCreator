@@ -1,5 +1,6 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.App = void 0;
 var fieldType_1 = require("./scripts/Enumerators/fieldType");
 var fields_1 = require("./scripts/classes/fields");
 var form_1 = require("./scripts/classes/form");
