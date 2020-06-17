@@ -1,6 +1,6 @@
-import { Storage } from "../Interfaces/storage";
+import { DataStorage } from "../Interfaces/dataStorage";
 
-export class LocStorage implements Storage {
+export class LocStorage implements DataStorage {
     allDocuments: Array<string> = [];    // Contains all saved documents (document ID in string array)
 
     constructor(){

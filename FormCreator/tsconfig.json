@@ -2,13 +2,13 @@
     "files": [
         "src/index.ts",
         "src/app.ts",
-        "src/scripts/classes/documents.ts",
         "src/scripts/classes/fields.ts",
         "src/scripts/classes/form.ts",
         "src/scripts/classes/locStorage.ts",
         "src/scripts/Enumerators/fieldType.ts",
         "src/scripts/Interfaces/field.ts",
-        "src/scripts/Interfaces/storage.ts"
+        "src/scripts/Interfaces/dataStorage.ts",
+        "src/scripts/classes/documentList.ts"
     ],
     "compilerOptions": {
         "noImplicitAny": true,
