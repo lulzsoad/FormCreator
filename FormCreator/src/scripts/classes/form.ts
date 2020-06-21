@@ -1,11 +1,15 @@
-import { Field } from "../Interfaces/field";
+import { Field } from '../Interfaces/field';
+import { LocStorage } from './locStorage';
+import { DocumentList } from './documentList';
 
 export class Form{
+    name: string;
     fieldTab: Array<Field>;
     result: string = ' '; // render result
     getValueResult: string = ' ';
 
-    constructor (fieldTab: Array<Field>) {
+    constructor (name: string, fieldTab: Array<Field>) {
+        this.name = name;
         this.fieldTab = fieldTab;
     }
     /*
@@ -50,16 +54,19 @@ export class Form{
 
             this.fieldTab[i].value = inputValue;
             
-            this.getValueResult += `<p>${this.fieldTab[i].label}: ${this.fieldTab[i].value}</p>`
+            //this.getValueResult += `<p>${this.fieldTab[i].label}: ${this.fieldTab[i].value}</p>`
 
             
         }
 
-        document.getElementById('result').innerHTML = this.getValueResult;
-        this.getValueResult = " ";
+        // document.getElementById('result').innerHTML = this.getValueResult;
+        // this.getValueResult = " ";
     }
 
     render(){
+        this.result += `<form name=${this.name}>`;
+        let fieldTab = this.fieldTab;
+
         for(let i = 0; i < this.fieldTab.length; i++) {
             /*
                 Input,          0
@@ -98,6 +105,30 @@ export class Form{
             
         }
 
+        this.result += `<p><input id="btn-back-form" value="Wstecz" type="button"><input id="btn-save-form" value="Zapisz" type="button"></p>`;
+        this.result += "</form>";
+
         document.getElementById('form').innerHTML = this.result;
+
+        let btnBackForm = document.querySelector('#btn-back-form');
+        let btnSaveForm = document.querySelector('#btn-save-form');
+
+        btnBackForm.addEventListener("click", function(){
+            window.location.href = "./index.html";
+        });
+
+        btnSaveForm.addEventListener("click", function(){
+            let form = new Form("form", fieldTab);
+            form.getValue();
+            form.save();
+            
+        });
+    }
+
+    save(){
+        let doc = new LocStorage();
+        doc.saveDocument(this.fieldTab);
+        console.log('Document has been saved');
+        window.location.href = "./index.html";
     }
 }

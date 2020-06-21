@@ -4,40 +4,40 @@ import { FieldType } from "./scripts/Enumerators/fieldType";
 import { InputField, TextAreaField, DateField, EmailField, SelectedField, CheckboxField } from "./scripts/classes/fields";
 import { Form } from "./scripts/classes/form";
 import { LocStorage } from "./scripts/classes/locStorage";
-import { DocumentList } from "./scripts/classes/documentList";
+import { DocumentList } from './scripts/classes/documentList';
 
 
 export class App {
 
     constructor(){
-        let btnSend = document.querySelector('#btn-submit');
+        var p = window.location.pathname;
 
-        let name1: Field = new InputField('name', 'Imię', FieldType.Input, "");
-        let lastName: Field = new InputField('lastName', 'Nazwisko', FieldType.Input, "");
-        let email: Field = new EmailField('email', 'E-mail', FieldType.Email, "");
-        let options: Array<string> = ['Informatyka', 'Ekonometria', 'Plastyka'];
-        let fieldOfStudy: Field = new SelectedField('fieldOfStudy', 'Kierunek studiów', FieldType.SelectField, options[0], options);
-        let eLearningPreferation: Field = new CheckboxField('eLearn', 'Czy preferujesz e-learning?', FieldType.CheckBox, '');
-        let notes: Field = new TextAreaField('notes', 'Uwagi', FieldType.TextArea, '');
-
-        let fieldTab: Array<Field> = [name1, lastName, email, fieldOfStudy, eLearningPreferation, notes];
-
-        let form = new Form(fieldTab);
-        form.render();
-        let doc = new LocStorage();
-        let documentList = new DocumentList();
+        // index.html
+        if (document.location.pathname === '/' || document.location.pathname.indexOf('index') >-1 ) {
             
-        btnSend.addEventListener("click", function() {
-            form.getValue();
-            doc.saveDocument(fieldTab);
-            console.log(localStorage.getItem(`allDocuments`));
+        }
+        //document-list.html
+        if (document.location.pathname === '/' || document.location.pathname.indexOf('document-list') >-1 ) {
+            let documentList = new DocumentList();
             documentList.render();
-        })
-    }
-    
-    
+        }
+        // new-document.html
+        if (document.location.pathname === '/' || document.location.pathname.indexOf('new-document') >-1 ) {
+            let name: Field = new InputField('name', 'Imię', FieldType.Input, "");
+            let lastName: Field = new InputField('lastName', 'Nazwisko', FieldType.Input, "");
+            let email: Field = new EmailField('email', 'E-mail', FieldType.Email, "");
+            let options: Array<string> = ['Informatyka', 'Ekonometria', 'Plastyka'];
+            let fieldOfStudy: Field = new SelectedField('fieldOfStudy', 'Kierunek studiów', FieldType.SelectField, options[0], options);
+            let eLearningPreferation: Field = new CheckboxField('eLearn', 'Czy preferujesz e-learning?', FieldType.CheckBox, '');
+            let notes: Field = new TextAreaField('notes', 'Uwagi', FieldType.TextArea, '');
 
-    
+            let fieldTab: Array<Field> = [name, lastName, email, fieldOfStudy, eLearningPreferation, notes];
+
+            let form = new Form("form1", fieldTab);
+            form.render();
+        }
+        
+    }
     
 }
     

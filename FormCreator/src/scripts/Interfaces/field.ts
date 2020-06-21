@@ -7,4 +7,5 @@ export interface Field {
     value: string;
     options?: Array<string>;
     render:() => HTMLDivElement;
+    getValue(): string;
 }

@@ -7,6 +7,9 @@ export class InputField implements Field{
     fieldType: FieldType;
     value: string;
     render: () => HTMLDivElement;
+    getValue(){
+        return this.value;
+    }
 
     constructor (name: string, label: string, fieldType: FieldType, value: string) {
         this.name = name;
@@ -22,6 +25,9 @@ export class TextAreaField implements Field{
     fieldType: FieldType;
     value: string;
     render: () => HTMLDivElement;
+    getValue(){
+        return this.value;
+    }
 
     constructor (name: string, label: string, fieldType: FieldType, value: string) {
         this.name = name;
@@ -37,6 +43,9 @@ export class DateField implements Field{
     fieldType: FieldType;
     value: string;
     render: () => HTMLDivElement;
+    getValue(){
+        return this.value;
+    }
 
     constructor (name: string, label: string, fieldType: FieldType, value: string) {
         this.name = name;
@@ -52,6 +61,9 @@ export class EmailField implements Field{
     fieldType: FieldType;
     value: string;
     render: () => HTMLDivElement;
+    getValue(){
+        return this.value;
+    }
 
     constructor (name: string, label: string, fieldType: FieldType, value: string) {
         this.name = name;
@@ -68,6 +80,9 @@ export class SelectedField implements Field{
     value: string;
     options: Array<string>;
     render: () => HTMLDivElement;
+    getValue(){
+        return this.value;
+    }
 
     constructor (name: string, label: string, fieldType: FieldType, value: string, options: Array<string>) {
         this.name = name;
@@ -84,6 +99,9 @@ export class CheckboxField implements Field{
     fieldType: FieldType;
     value: string;
     render: () => HTMLDivElement;
+    getValue(){
+        return this.value;
+    }
 
     constructor (name: string, label: string, fieldType: FieldType, value: string) {
         this.name = name;
