@@ -5,6 +5,7 @@ import { InputField, TextAreaField, DateField, EmailField, SelectedField, Checkb
 import { Form } from "./scripts/classes/form";
 import { LocStorage } from "./scripts/classes/locStorage";
 import { DocumentList } from './scripts/classes/documentList';
+import { Router } from './scripts/classes/router';
 
 
 export class App {
@@ -35,6 +36,13 @@ export class App {
 
             let form = new Form("form1", fieldTab);
             form.render();
+        }
+        // edit-document.html
+        if (document.location.pathname === '/' || document.location.pathname.indexOf('edit-document') >-1 ) {
+            let id: string = Router.getParam();
+            let document = new DocumentList().getDocument(id);
+            let form = new Form('form', document);
+            form.render(id);
         }
         
     }

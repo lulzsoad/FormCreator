@@ -1,6 +1,7 @@
 import { Field } from '../Interfaces/field';
 import { LocStorage } from './locStorage';
 import { DocumentList } from './documentList';
+import { Router } from './router';
 
 export class Form{
     name: string;
@@ -63,7 +64,7 @@ export class Form{
         // this.getValueResult = " ";
     }
 
-    render(){
+    render(documentId?: string){
         this.result += `<form name=${this.name}>`;
         let fieldTab = this.fieldTab;
 
@@ -78,26 +79,32 @@ export class Form{
             */
             switch (this.fieldTab[i].fieldType) {
                 case 0:
-                    this.result += `<p>${this.fieldTab[i].label}: <input name="${this.fieldTab[i].name}", type="text", value=""></p>`;
+                    this.result += `<p>${this.fieldTab[i].label}: <input name="${this.fieldTab[i].name}", type="text", value="${this.fieldTab[i].value}"></p>`;
                     break;
                 case 1:
-                    this.result += `<p>${this.fieldTab[i].label}: <textarea name="${this.fieldTab[i].name}"></textarea></p>`;
+                    this.result += `<p>${this.fieldTab[i].label}: <textarea name="${this.fieldTab[i].name}">${this.fieldTab[i].value}</textarea></p>`;
                     break;
                 case 2:
-                    this.result += `<p>${this.fieldTab[i].label}: <input name="${this.fieldTab[i].name}", type="date", value=""></p>`;
+                    this.result += `<p>${this.fieldTab[i].label}: <input name="${this.fieldTab[i].name}", type="date", value="${this.fieldTab[i].value}"></p>`;
                     break;
                 case 3:
-                    this.result += `<p>${this.fieldTab[i].label}: <input name="${this.fieldTab[i].name}", type="email", value=""></p>`;
+                    this.result += `<p>${this.fieldTab[i].label}: <input name="${this.fieldTab[i].name}", type="email", value="${this.fieldTab[i].value}"></p>`;
                     break;
                 case 4:
-                    this.result += `<p>${this.fieldTab[i].label}: <select name="${this.fieldTab[i].name}" id="">`;
+                    this.result += `<p>${this.fieldTab[i].label}: <select name="${this.fieldTab[i].name}" >`;
                     for(let j = 0; j < this.fieldTab[i].options.length; j++) {
-                        this.result += `<option id="${this.fieldTab[i].options[j]}">${this.fieldTab[i].options[j]}</option>`;
+                        if(this.fieldTab[i].value == this.fieldTab[i].options[j])
+                            this.result += `<option id="${this.fieldTab[i].options[j]}" selected>${this.fieldTab[i].options[j]}</option>`;
+                        else
+                            this.result += `<option id="${this.fieldTab[i].options[j]}">${this.fieldTab[i].options[j]}</option>`;
                     }
                     this.result += `</select></p>`;
                     break;
                 case 5:
-                    this.result += `<p>${this.fieldTab[i].label}: <input name="${this.fieldTab[i].name}", type="checkbox", value=""></p>`;
+                    if(this.fieldTab[i].value == "Tak")
+                        this.result += `<p>${this.fieldTab[i].label}: <input name="${this.fieldTab[i].name}", type="checkbox"checked></p>`;
+                    else
+                        this.result += `<p>${this.fieldTab[i].label}: <input name="${this.fieldTab[i].name}", type="checkbox"></p>`;
                     break;
 
             }
@@ -113,16 +120,34 @@ export class Form{
         let btnBackForm = document.querySelector('#btn-back-form');
         let btnSaveForm = document.querySelector('#btn-save-form');
 
-        btnBackForm.addEventListener("click", function(){
-            window.location.href = "./index.html";
-        });
+        if (document.location.pathname === '/' || document.location.pathname.indexOf('new-document') >-1 ) {
+            btnBackForm.addEventListener("click", function(){
+                window.location.href = "./index.html";
+            });
+    
+            btnSaveForm.addEventListener("click", function(){
+                let form = new Form("form", fieldTab);
+                form.getValue();
+                form.save();
+                
+            });
+        }
+        else {
+            btnBackForm.addEventListener("click", function(){
+                window.location.href = "./document-list.html";
+            });
+    
+            btnSaveForm.addEventListener("click", function(){
+                let id = Router.getParam();
+                let form = new Form("form", fieldTab);
+                form.getValue();
+                form.saveEditedForm(documentId);
+            });
+        }
 
-        btnSaveForm.addEventListener("click", function(){
-            let form = new Form("form", fieldTab);
-            form.getValue();
-            form.save();
-            
-        });
+        
+        
+        
     }
 
     save(){
@@ -130,5 +155,10 @@ export class Form{
         doc.saveDocument(this.fieldTab);
         console.log('Document has been saved');
         window.location.href = "./index.html";
+    }
+
+    saveEditedForm(documentId: string){
+        localStorage.setItem(`${documentId}`, JSON.stringify(this.fieldTab));
+        window.location.href = "./document-list.html";
     }
 }
