@@ -9,7 +9,8 @@
         "src/scripts/Interfaces/field.ts",
         "src/scripts/Interfaces/dataStorage.ts",
         "src/scripts/classes/documentList.ts",
-        "src/scripts/classes/router.ts"
+        "src/scripts/classes/router.ts",
+        "src/scripts/classes/formCreator.ts"
     ],
     "compilerOptions": {
         "noImplicitAny": true,
