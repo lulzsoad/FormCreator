@@ -8,6 +8,7 @@ export class Form{
     fieldTab: Array<Field>;
     result: string = ' '; // render result
     getValueResult: string = ' ';
+    ID: string;
 
     constructor (name: string, fieldTab: Array<Field>) {
         this.name = name;
@@ -126,7 +127,7 @@ export class Form{
             });
     
             btnSaveForm.addEventListener("click", function(){
-                let form = new Form("form", fieldTab);
+                let form = new Form('name', fieldTab);
                 form.getValue();
                 form.save();
                 
@@ -139,7 +140,7 @@ export class Form{
     
             btnSaveForm.addEventListener("click", function(){
                 let id = Router.getParam();
-                let form = new Form("form", fieldTab);
+                let form = new Form('name', fieldTab);
                 form.getValue();
                 form.saveEditedForm(documentId);
             });
