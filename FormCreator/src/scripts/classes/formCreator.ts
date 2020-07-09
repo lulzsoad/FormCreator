@@ -98,79 +98,94 @@ export class FormCreator {
             let btnFormCreatorAddField = document.querySelector(`#btn-form-creator-submit`);
             btnFormCreatorAddField.addEventListener(`click`, function(){
                 let result = '';
+                let formNameField: HTMLInputElement = document.querySelector(`input[id=form-creator-formname]`);
                 let fieldLabel: string = (<HTMLInputElement>document.querySelector('input[name=field-label]')).value;
                 //let fieldType: string = (<HTMLInputElement>document.querySelector('select[name=field-type]')).value;
                 let fieldName: string = (<HTMLInputElement>document.querySelector('input[name=field-name]')).value;
                 let fieldDefaultValue = (<HTMLInputElement>document.querySelector('input[name=field-default-value]'));
                 let fieldDefaultValueTA = (<HTMLInputElement>document.querySelector('textarea[name=field-default-value]'));
-                if(selectFormCreator.selectedIndex == 0) {
-                    fieldTypeTab.push(`<p>${fieldLabel}: <input name="${fieldName}" type=text value="${fieldDefaultValue.value}"></p>`);
-                    fieldsTab.push(new InputField(fieldName, fieldLabel, FieldType.Input, fieldDefaultValue.value));
+                if(fieldLabel.length < 1 || fieldName.length < 1){
+                    alert('Uzupełnij wszystkie pola')
                 }
-                if(selectFormCreator.selectedIndex == 1) {
-                    fieldTypeTab.push(`<p>${fieldLabel}: <textarea name=${fieldName}>${fieldDefaultValueTA.value}</textarea></p>`);
-                    fieldsTab.push(new TextAreaField(fieldName, fieldLabel, FieldType.TextArea, fieldDefaultValueTA.value));
-                }
-                if(selectFormCreator.selectedIndex == 2) {
-                    fieldTypeTab.push(`<p>${fieldLabel}: <input name="${fieldName}" type=date value="${fieldDefaultValue.value}"></p>`);
-                    fieldsTab.push(new DateField(fieldName, fieldLabel, FieldType.Date, fieldDefaultValue.value));
-                }
-                if(selectFormCreator.selectedIndex == 3) {
-                    fieldTypeTab.push(`<p>${fieldLabel}: <input name="${fieldName}" type=email value="${fieldDefaultValue.value}"></p>`);
-                    fieldsTab.push(new EmailField(fieldName, fieldLabel, FieldType.Email, fieldDefaultValue.value));
-                }
-                if(selectFormCreator.selectedIndex == 4) {
-                    let result = `<p>${fieldLabel}: <select name="${fieldName}">`
-                    let options: Array<string> = [];
-                    
-                    let inputQuantityOpts: HTMLInputElement = document.querySelector(`#form-creator-options-quantity-input`);
-                    for(let i = 0; i < (inputQuantityOpts.value as unknown as number); i++) {
-                        result += `<option>${(<HTMLInputElement>document.querySelector(`input[name=option${i}]`)).value}</option>`
-                        options.push((<HTMLInputElement>document.querySelector(`input[name=option${i}]`)).value);
+                else {
+                    formNameField.disabled = true;
+                    if(selectFormCreator.selectedIndex == 0) {
+                        fieldTypeTab.push(`<p>${fieldLabel}: <input name="${fieldName}" type=text value="${fieldDefaultValue.value}"></p>`);
+                        fieldsTab.push(new InputField(fieldName, fieldLabel, FieldType.Input, fieldDefaultValue.value));
                     }
-
-                    result += `</select></p>`
-                    fieldTypeTab.push(result);
-                    fieldsTab.push(new SelectedField(fieldName, fieldLabel, FieldType.Email, fieldDefaultValue.value, options));
-                }
-                if(selectFormCreator.selectedIndex == 5) {
-                    if(fieldDefaultValue.checked == true) {
-                        fieldTypeTab.push(`<p>${fieldLabel}: <input name="${fieldName}" type="checkbox" checked></p>`);
-                        fieldsTab.push(new CheckboxField(fieldName, fieldLabel, FieldType.Email, "Tak"));
+                    if(selectFormCreator.selectedIndex == 1) {
+                        fieldTypeTab.push(`<p>${fieldLabel}: <textarea name=${fieldName}>${fieldDefaultValueTA.value}</textarea></p>`);
+                        fieldsTab.push(new TextAreaField(fieldName, fieldLabel, FieldType.TextArea, fieldDefaultValueTA.value));
                     }
-                    else {
-                        fieldTypeTab.push(`<p>${fieldLabel}: <input name="${fieldName}" type="checkbox"></p>`);
-                        fieldsTab.push(new CheckboxField(fieldName, fieldLabel, FieldType.Email, "Nie"));
+                    if(selectFormCreator.selectedIndex == 2) {
+                        fieldTypeTab.push(`<p>${fieldLabel}: <input name="${fieldName}" type=date value="${fieldDefaultValue.value}"></p>`);
+                        fieldsTab.push(new DateField(fieldName, fieldLabel, FieldType.Date, fieldDefaultValue.value));
                     }
+                    if(selectFormCreator.selectedIndex == 3) {
+                        fieldTypeTab.push(`<p>${fieldLabel}: <input name="${fieldName}" type=email value="${fieldDefaultValue.value}"></p>`);
+                        fieldsTab.push(new EmailField(fieldName, fieldLabel, FieldType.Email, fieldDefaultValue.value));
+                    }
+                    if(selectFormCreator.selectedIndex == 4) {
+                        let result = `<p>${fieldLabel}: <select name="${fieldName}">`
+                        let options: Array<string> = [];
                         
+                        let inputQuantityOpts: HTMLInputElement = document.querySelector(`#form-creator-options-quantity-input`);
+                        for(let i = 0; i < (inputQuantityOpts.value as unknown as number); i++) {
+                            result += `<option>${(<HTMLInputElement>document.querySelector(`input[name=option${i}]`)).value}</option>`
+                            options.push((<HTMLInputElement>document.querySelector(`input[name=option${i}]`)).value);
+                        }
+    
+                        result += `</select></p>`
+                        fieldTypeTab.push(result);
+                        fieldsTab.push(new SelectedField(fieldName, fieldLabel, FieldType.SelectField, fieldDefaultValue.value, options));
+                    }
+                    if(selectFormCreator.selectedIndex == 5) {
+                        if(fieldDefaultValue.checked == true) {
+                            fieldTypeTab.push(`<p>${fieldLabel}: <input name="${fieldName}" type="checkbox" checked></p>`);
+                            fieldsTab.push(new CheckboxField(fieldName, fieldLabel, FieldType.CheckBox, "Tak"));
+                        }
+                        else {
+                            fieldTypeTab.push(`<p>${fieldLabel}: <input name="${fieldName}" type="checkbox"></p>`);
+                            fieldsTab.push(new CheckboxField(fieldName, fieldLabel, FieldType.CheckBox, "Nie"));
+                        }
+                            
+                    }
+                    
+                    
+    
+                     for(let i = 0; i<fieldTypeTab.length; i++) {
+                         result += fieldTypeTab[i];
+                     }
+    
+                     result += `<input type=button id='btn-formcreator-save-form' value='Zapisz formularz'>`;
+    
+                    document.querySelector(`#form-creator-view`).innerHTML = result;
+    
+                    let btnFormCreatorSaveForm = document.querySelector(`#btn-formcreator-save-form`);
+                     btnFormCreatorSaveForm.addEventListener(`click`, function(){
+    
+                         let name: string = (<HTMLInputElement>document.querySelector(`input[id=form-creator-formname]`)).value
+                         let form = new Form(name, fieldsTab);
+                         new FormCreator().saveForm(form);
+                         window.location.href = "./index.html";
+                     })
                 }
                 
-                
-
-                 for(let i = 0; i<fieldTypeTab.length; i++) {
-                     result += fieldTypeTab[i];
-                 }
-
-                 result += `<input type=button id='btn-formcreator-save-form' value='Zapisz formularz'>`;
-
-                document.querySelector(`#form-creator-view`).innerHTML = result;
-
-                let btnFormCreatorSaveForm = document.querySelector(`#btn-formcreator-save-form`);
-                 btnFormCreatorSaveForm.addEventListener(`click`, function(){
-                     let name: string = (<HTMLInputElement>document.querySelector(`input[id=form-creator-formname]`)).value
-                     let form = new Form(name, fieldsTab);
-                     new FormCreator().saveForm(form);
-                 })
             })
     }
 
     saveForm(form: Form){
-        new LocStorage().saveForm(form.fieldTab);
+        new LocStorage().saveForm(form.name, form.fieldTab);
     }
 
     getForm(id: string){
         let form: any = JSON.parse(localStorage.getItem(`${id}`));
         return form;
+    }
+
+    getFormName(id: string){
+        let formName: string = JSON.parse(localStorage.getItem(`${id}` + 'name'));
+        return formName;
     }
 
     renderFormList(){
@@ -181,7 +196,9 @@ export class FormCreator {
 
         this.renderResult += '<table border=1><tr><td>ID</td><td>Nazwa</td><td>Wypełnij</td></tr>';
         for(var i:number = 0; i < this.allForms.length; i++) {
-            this.renderResult += `<tr><td><p id=form-id-${i}>${this.allForms[i]}</p></td><td>Nazwa</td><td><a href="./new-document.html?id=${this.allForms[i]}">Wypełnij</a></td></tr>`
+            let form: any = new FormCreator().getForm(this.allForms[i]);
+            
+            this.renderResult += `<tr><td><p id=form-id-${i}>${this.allForms[i]}</p></td><td>${this.getFormName(this.allForms[i])}</td><td><a href="./new-document.html?id=${this.allForms[i]}">Wypełnij</a></td></tr>`
         }
         this.renderResult += '</table>'
 

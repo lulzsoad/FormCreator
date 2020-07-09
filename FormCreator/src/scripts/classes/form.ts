@@ -29,22 +29,22 @@ export class Form{
         for(let i = 0; i < this.fieldTab.length; i++) {
             let inputValue: string;
             if(this.fieldTab[i].fieldType === 0) {
-                inputValue = (<HTMLInputElement>document.querySelector(`input[name=${this.fieldTab[i].name}]`)).value;
+                inputValue = (<HTMLInputElement>document.querySelector(`input[name='${this.fieldTab[i].name}']`)).value;
             }
             if(this.fieldTab[i].fieldType === 1) {
-                inputValue = (<HTMLInputElement>document.querySelector(`textarea[name=${this.fieldTab[i].name}]`)).value;
+                inputValue = (<HTMLInputElement>document.querySelector(`textarea[name='${this.fieldTab[i].name}']`)).value;
             }
             if(this.fieldTab[i].fieldType === 2) {
-                inputValue = (<HTMLInputElement>document.querySelector(`input[name=${this.fieldTab[i].name}]`)).value;
+                inputValue = (<HTMLInputElement>document.querySelector(`input[name='${this.fieldTab[i].name}']`)).value;
             }
             if(this.fieldTab[i].fieldType === 3) {
-                inputValue = (<HTMLInputElement>document.querySelector(`input[name=${this.fieldTab[i].name}]`)).value;
+                inputValue = (<HTMLInputElement>document.querySelector(`input[name='${this.fieldTab[i].name}']`)).value;
             }
             if(this.fieldTab[i].fieldType === 4) {
-                inputValue = (<HTMLInputElement>document.querySelector(`select[name=${this.fieldTab[i].name}]`)).value;
+                inputValue = (<HTMLInputElement>document.querySelector(`select[name='${this.fieldTab[i].name}']`)).value;
             }
             if(this.fieldTab[i].fieldType === 5) {
-                if((<HTMLInputElement>document.querySelector(`input[name=${this.fieldTab[i].name}]`)).checked)
+                if((<HTMLInputElement>document.querySelector(`input[name='${this.fieldTab[i].name}']`)).checked)
                 {
                     inputValue = "Tak";
                 }

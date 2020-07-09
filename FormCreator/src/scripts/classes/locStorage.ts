@@ -64,15 +64,18 @@ export class LocStorage implements DataStorage {
         window.location.reload();
     }
 
-    public saveForm(fieldsTab: any){
+    public saveForm(name: string, fieldsTab: any){
         if(!(localStorage.getItem('allForms'))){
             localStorage.setItem('allForms', '');
             this.allForms = [];
         }
         let idForm: string;
         let timestamp = Date.now();
+        let idFormName: string;
         idForm = timestamp.toString();
+        idFormName = timestamp.toString() + `name`;
         localStorage.setItem(idForm, JSON.stringify(fieldsTab));
+        localStorage.setItem(idFormName, JSON.stringify(name));
         this.allForms.push(idForm);
         localStorage.setItem(`allForms`, JSON.stringify(this.allForms));
         return idForm;
@@ -99,4 +102,5 @@ export class LocStorage implements DataStorage {
         localStorage.setItem(`allForms`, JSON.stringify(allFormsTab));
         window.location.reload();
     }
+    
 }
