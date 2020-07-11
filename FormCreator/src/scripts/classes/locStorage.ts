@@ -34,7 +34,7 @@ export class LocStorage implements DataStorage {
             this.allDocuments = [];
         }
         let idDocument: string;
-        let timestamp = Date.now();
+        let timestamp: number = Date.now();
         idDocument = timestamp.toString();
         localStorage.setItem(idDocument, JSON.stringify(fieldsValue));
         this.allDocuments.push(idDocument);
@@ -56,7 +56,7 @@ export class LocStorage implements DataStorage {
     removeDocument(id: string) {
         localStorage.removeItem(`${id}`);
         let allDocumentsTab: Array<string> = JSON.parse(localStorage.getItem(`allDocuments`));
-        let index = allDocumentsTab.indexOf(id);
+        let index: number = allDocumentsTab.indexOf(id);
         if (index > -1) {
             allDocumentsTab.splice(index, 1);
             }
@@ -70,7 +70,7 @@ export class LocStorage implements DataStorage {
             this.allForms = [];
         }
         let idForm: string;
-        let timestamp = Date.now();
+        let timestamp: number = Date.now();
         let idFormName: string;
         idForm = timestamp.toString();
         idFormName = timestamp.toString() + `name`;
@@ -81,21 +81,21 @@ export class LocStorage implements DataStorage {
         return idForm;
     }
 
-    loadForm(idForm: string){
+    loadForm(idForm: string): Array<object>{
         let formFields: Array<object>;
         formFields = JSON.parse(localStorage.getItem(idForm));
         return formFields;
     }
 
-    public getForms(){
+    public getForms(): Array<string>{
         let idFormTab: Array<string> = JSON.parse(localStorage.getItem(`allForms`));
         return idFormTab;
     }
     
-    removeForm(id: string) {
+    removeForm(id: string): void {
         localStorage.removeItem(`${id}`);
         let allFormsTab: Array<string> = JSON.parse(localStorage.getItem(`allForms`));
-        let index = allFormsTab.indexOf(id);
+        let index: number = allFormsTab.indexOf(id);
         if (index > -1) {
             allFormsTab.splice(index, 1);
             }

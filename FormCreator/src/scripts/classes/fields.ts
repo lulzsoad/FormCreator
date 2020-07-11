@@ -7,7 +7,7 @@ export class InputField implements Field{
     fieldType: FieldType;
     value: string;
     render: () => HTMLDivElement;
-    getValue(){
+    getValue(): string{
         return this.value;
     }
 
@@ -25,7 +25,7 @@ export class TextAreaField implements Field{
     fieldType: FieldType;
     value: string;
     render: () => HTMLDivElement;
-    getValue(){
+    getValue(): string{
         return this.value;
     }
 
@@ -43,7 +43,7 @@ export class DateField implements Field{
     fieldType: FieldType;
     value: string;
     render: () => HTMLDivElement;
-    getValue(){
+    getValue(): string{
         return this.value;
     }
 
@@ -61,7 +61,7 @@ export class EmailField implements Field{
     fieldType: FieldType;
     value: string;
     render: () => HTMLDivElement;
-    getValue(){
+    getValue(): string{
         return this.value;
     }
 
@@ -80,7 +80,7 @@ export class SelectedField implements Field{
     value: string;
     options: Array<string>;
     render: () => HTMLDivElement;
-    getValue(){
+    getValue(): string{
         return this.value;
     }
 

@@ -21,36 +21,22 @@ export class App {
         }
         //document-list.html
         if (document.location.pathname === '/' || document.location.pathname.indexOf('document-list') >-1 ) {
-            let documentList = new DocumentList();
+            let documentList: DocumentList = new DocumentList();
             documentList.render();
         }
         // new-document.html
         if (document.location.pathname === '/' || document.location.pathname.indexOf('new-document') >-1 ) {
             //new FormCreator().renderFormList();
             let id: string = Router.getParam();
-            let gottenForm = new FormCreator().getForm(id);
-            let form = new Form('name', gottenForm);
+            let gottenForm: any = new FormCreator().getForm(id);
+            let form: Form = new Form('name', gottenForm);
             form.render(id);
-
-
-            // let name: Field = new InputField('name', 'Imię', FieldType.Input, "");
-            // let lastName: Field = new InputField('lastName', 'Nazwisko', FieldType.Input, "");
-            // let email: Field = new EmailField('email', 'E-mail', FieldType.Email, "");
-            // let options: Array<string> = ['Informatyka', 'Ekonometria', 'Plastyka'];
-            // let fieldOfStudy: Field = new SelectedField('fieldOfStudy', 'Kierunek studiów', FieldType.SelectField, options[0], options);
-            // let eLearningPreferation: Field = new CheckboxField('eLearn', 'Czy preferujesz e-learning?', FieldType.CheckBox, '');
-            // let notes: Field = new TextAreaField('notes', 'Uwagi', FieldType.TextArea, '');
-
-            // let fieldTab: Array<Field> = [name, lastName, email, fieldOfStudy, eLearningPreferation, notes];
-
-            // let form = new Form('name', fieldTab);
-            // form.render();
         }
         // edit-document.html
         if (document.location.pathname === '/' || document.location.pathname.indexOf('edit-document') >-1 ) {
             let id: string = Router.getParam();
-            let document = new DocumentList().getDocument(id);
-            let form = new Form('name', document);
+            let document: any = new DocumentList().getDocument(id);
+            let form: Form = new Form('name', document);
             form.render(id);
         }
         // form-list.html

@@ -14,19 +14,9 @@ export class Form{
         this.name = name;
         this.fieldTab = fieldTab;
     }
-    /*
-    constructor (inputField: InputField, textAreaField: TextAreaField, dateField: DateField, emailField: EmailField, selectedField: SelectedField, checkboxField: CheckboxField){
-        this.fieldTab[0] = inputField;
-        this.fieldTab[1] = textAreaField;
-        this.fieldTab[2] = dateField;
-        this.fieldTab[3] = emailField;
-        this.fieldTab[4] = selectedField;
-        this.fieldTab[5] = checkboxField;
-    }
-    */
 
-    getValue(){
-        for(let i = 0; i < this.fieldTab.length; i++) {
+    getValue(): void{
+        for(let i: number = 0; i < this.fieldTab.length; i++) {
             let inputValue: string;
             if(this.fieldTab[i].fieldType === 0) {
                 inputValue = (<HTMLInputElement>document.querySelector(`input[name='${this.fieldTab[i].name}']`)).value;
@@ -55,21 +45,16 @@ export class Form{
             }
 
             this.fieldTab[i].value = inputValue;
-            
-            //this.getValueResult += `<p>${this.fieldTab[i].label}: ${this.fieldTab[i].value}</p>`
 
             
         }
-
-        // document.getElementById('result').innerHTML = this.getValueResult;
-        // this.getValueResult = " ";
     }
 
-    render(documentId?: string){
-        this.result += `<form name=${this.name}>`;
-        let fieldTab = this.fieldTab;
+    render(documentId?: string): void{
+        this.result += `<form name=${this.name}> <table>`;
+        let fieldTab: Array<Field> = this.fieldTab;
 
-        for(let i = 0; i < this.fieldTab.length; i++) {
+        for(let i: number = 0; i < this.fieldTab.length; i++) {
             /*
                 Input,          0
                 TextArea,       1
@@ -80,32 +65,32 @@ export class Form{
             */
             switch (this.fieldTab[i].fieldType) {
                 case 0:
-                    this.result += `<p>${this.fieldTab[i].label}: <input name="${this.fieldTab[i].name}", type="text", value="${this.fieldTab[i].value}"></p>`;
+                    this.result += `<tr><td><p>${this.fieldTab[i].label}:</p> </td><td><input name="${this.fieldTab[i].name}", type="text", value="${this.fieldTab[i].value}"></td>`;
                     break;
                 case 1:
-                    this.result += `<p>${this.fieldTab[i].label}: <textarea name="${this.fieldTab[i].name}">${this.fieldTab[i].value}</textarea></p>`;
+                    this.result += `<tr><td><p>${this.fieldTab[i].label}:</p></td> <td><textarea name="${this.fieldTab[i].name}">${this.fieldTab[i].value}</textarea></td></tr>`;
                     break;
                 case 2:
-                    this.result += `<p>${this.fieldTab[i].label}: <input name="${this.fieldTab[i].name}", type="date", value="${this.fieldTab[i].value}"></p>`;
+                    this.result += `<tr><td><p>${this.fieldTab[i].label}:</p></td> <td><input name="${this.fieldTab[i].name}", type="date", value="${this.fieldTab[i].value}"></td></tr>`;
                     break;
                 case 3:
-                    this.result += `<p>${this.fieldTab[i].label}: <input name="${this.fieldTab[i].name}", type="email", value="${this.fieldTab[i].value}"></p>`;
+                    this.result += `<tr><td><p>${this.fieldTab[i].label}:</p></td> <td><input name="${this.fieldTab[i].name}", type="email", value="${this.fieldTab[i].value}"></td></tr>`;
                     break;
                 case 4:
-                    this.result += `<p>${this.fieldTab[i].label}: <select name="${this.fieldTab[i].name}" >`;
+                    this.result += `<tr><td><p>${this.fieldTab[i].label}: </p></td><td><select name="${this.fieldTab[i].name}" >`;
                     for(let j = 0; j < this.fieldTab[i].options.length; j++) {
                         if(this.fieldTab[i].value == this.fieldTab[i].options[j])
                             this.result += `<option id="${this.fieldTab[i].options[j]}" selected>${this.fieldTab[i].options[j]}</option>`;
                         else
                             this.result += `<option id="${this.fieldTab[i].options[j]}">${this.fieldTab[i].options[j]}</option>`;
                     }
-                    this.result += `</select></p>`;
+                    this.result += `</select></td></tr>`;
                     break;
                 case 5:
                     if(this.fieldTab[i].value == "Tak")
-                        this.result += `<p>${this.fieldTab[i].label}: <input name="${this.fieldTab[i].name}", type="checkbox"checked></p>`;
+                        this.result += `<tr><td><p>${this.fieldTab[i].label}: </p></td><td><input name="${this.fieldTab[i].name}", type="checkbox"checked></td></tr>`;
                     else
-                        this.result += `<p>${this.fieldTab[i].label}: <input name="${this.fieldTab[i].name}", type="checkbox"></p>`;
+                        this.result += `<tr><td><p>${this.fieldTab[i].label}:</p></td> <td><input name="${this.fieldTab[i].name}", type="checkbox"></td></tr>`;
                     break;
 
             }
@@ -113,13 +98,13 @@ export class Form{
             
         }
 
-        this.result += `<p><input id="btn-back-form" value="Wstecz" type="button"><input id="btn-save-form" value="Zapisz" type="button"></p>`;
-        this.result += "</form>";
+        this.result += `<tr><td><input id="btn-back-form" value="Wstecz" type="button"></td><td><input id="btn-save-form" value="Zapisz" type="button"></td></tr>`;
+        this.result += "</table></form>";
 
         document.getElementById('form').innerHTML = this.result;
 
-        let btnBackForm = document.querySelector('#btn-back-form');
-        let btnSaveForm = document.querySelector('#btn-save-form');
+        let btnBackForm: Element = document.querySelector('#btn-back-form');
+        let btnSaveForm: Element = document.querySelector('#btn-save-form');
 
         if (document.location.pathname === '/' || document.location.pathname.indexOf('new-document') >-1 ) {
             btnBackForm.addEventListener("click", function(){
@@ -127,7 +112,7 @@ export class Form{
             });
     
             btnSaveForm.addEventListener("click", function(){
-                let form = new Form('name', fieldTab);
+                let form: Form = new Form('name', fieldTab);
                 form.getValue();
                 form.save();
                 
@@ -139,8 +124,8 @@ export class Form{
             });
     
             btnSaveForm.addEventListener("click", function(){
-                let id = Router.getParam();
-                let form = new Form('name', fieldTab);
+                let id: string = Router.getParam();
+                let form: Form = new Form('name', fieldTab);
                 form.getValue();
                 form.saveEditedForm(documentId);
             });
@@ -151,14 +136,14 @@ export class Form{
         
     }
 
-    save(){
-        let doc = new LocStorage();
+    save(): void{
+        let doc: LocStorage = new LocStorage();
         doc.saveDocument(this.fieldTab);
         console.log('Document has been saved');
         window.location.href = "./index.html";
     }
 
-    saveEditedForm(documentId: string){
+    saveEditedForm(documentId: string): void{
         localStorage.setItem(`${documentId}`, JSON.stringify(this.fieldTab));
         window.location.href = "./document-list.html";
     }

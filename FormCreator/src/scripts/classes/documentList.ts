@@ -18,13 +18,13 @@ export class DocumentList {
         
     }
 
-    getDocumentList() {
+    getDocumentList(): void {
         this.allDocuments = new LocStorage().getDocuments();
     }
 
-    render() {
+    render(): void {
         let allDocs: Array<string> = this.allDocuments;
-        this.renderResult = '';
+        this.renderResult = '<h1>Lista dokumentów</h1>';
         this.getDocumentList();
         let removeButtons: Array<Element> = [,];
 
@@ -37,7 +37,7 @@ export class DocumentList {
         document.getElementById('document-list').innerHTML = this.renderResult; // Rendering list
 
         // Adding click events to remove buttons
-        for(let j = 0; j< allDocs.length; j++){
+        for(let j: number = 0; j< allDocs.length; j++){
             removeButtons[j] = document.querySelector(`#btn-remove-doc-${allDocs[j]}`);
             if(removeButtons[j]){
                 removeButtons[j].addEventListener('click', function(){
@@ -47,15 +47,15 @@ export class DocumentList {
         }
     }
 
-    getDocument(id: string){
+    getDocument(id: string): any{
         let doc: any = JSON.parse(localStorage.getItem(`${id}`));
         return doc;
     }
 
-    removeDocument(id: string) {
+    removeDocument(id: string): void {
         localStorage.removeItem(`${id}`);
         let allDocumentsTab: Array<string> = JSON.parse(localStorage.getItem(`allDocuments`));
-        let index = allDocumentsTab.indexOf(id);
+        let index: number = allDocumentsTab.indexOf(id);
         if (index > -1) {
             allDocumentsTab.splice(index, 1);
             }

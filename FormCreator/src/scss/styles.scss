@@ -1,0 +1,220 @@
+$pageColor: rgba(255, 250, 250, 0.421);
+$headerContentColor: rgb(32, 31, 31);
+$headerTextColor: rgb(255, 228, 228);
+$menuContentColor: rgb(57, 55, 55);
+$menuColorHover: rgb(74, 72, 72);
+$textColor: rgb(74, 72, 72);
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    display: flex;
+    float: left;
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    
+
+    .content {
+        margin-top: 5vh;
+        margin-bottom: 20px;
+        background-color: $pageColor;
+        display: block;
+        float: left;
+        width: 80%;
+        height: auto;
+        justify-content: center;
+        box-shadow: 2px 2px 5px 5px #00000013;
+        
+
+        .header {
+            margin: 0;
+            
+            width: 100%;
+            height: 10vh;
+            background-color: $headerContentColor;
+            display: block;
+            float: left;
+            align-items: center;
+
+            h1 {
+                display: flex;
+                justify-content: center;
+                align-content: center;
+
+                color: $headerTextColor;
+                font-family: fantasy;
+            }
+
+            a {
+                color: $headerTextColor;
+                text-decoration: none;
+            }
+        }
+
+        .menu{
+            width: 100%;
+            height: 7vh;
+            background-color: $menuContentColor;
+            color: $headerTextColor;
+            display: flex;
+            float: left;
+
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                width: 100%;
+                display: flex;
+
+                li{
+                    display: inline-flex;
+                    width: 50%;
+                    justify-content: center;
+                    align-content: center;
+                    align-items: center;
+                    h2 {
+                        display: flex;
+                        justify-content: center;
+                        margin: 0;
+                        padding: 0;
+                    }
+                    a {
+                        color: $headerTextColor;
+                        text-decoration: none;
+                    }
+
+                }
+                li:hover {
+                    background-color: $menuColorHover;
+                }
+            }
+        }
+
+        .form-creator {
+            width: 100%;
+            display: flex;
+            float: left;
+            justify-content: center;
+            
+
+            .form-creator-creator {
+                display: flex;
+                float: left;
+                width: 50%;
+                max-height: 65vh;
+                font-family: fantasy;
+                color: $textColor;
+                font-size: 20px;
+                overflow: auto;
+
+                justify-content: center;
+                padding-top: 6%;
+
+                td {
+                    padding-right: 10px;
+                    input {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .form-creator-view {
+                display: flex;
+                float: left;
+                width: 50%;
+                max-height: 65vh;
+                font-family: fantasy;
+                color: $textColor;
+                font-size: 20px;
+                overflow: auto;
+
+                justify-content: center;
+                padding-top: 6%;
+
+                tr {
+                    td {
+                        padding-right: 10px;
+                        p {
+                            margin: 0;
+                        }
+                        input {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+        .main {
+            width: 100%;
+            
+            display: flex;
+            float: left;
+            text-align: center;
+
+           
+
+            .main-form-list {
+                display: flex;
+                flex-wrap: wrap;
+                float: left;
+                width: 100%;
+                max-height: 65vh;
+                overflow: auto;
+                justify-content: center;
+                align-items: center;
+
+                h1 {
+                    float: left;
+                    text-align: center;
+                    width: 100%;
+                }
+
+                table {
+
+                    border: solid;
+                    width: 80%;
+                    font-family: fantasy;
+                    justify-content: center;
+                    
+                    tr {
+                        width: 100%;
+                        td {
+                            border: 1px solid gray;
+                        }
+                    }
+
+                }
+            }
+
+            .form {
+                display: flex;
+                float: left;
+                width: 100%;
+                max-height: 65vh;
+                overflow: auto;
+                justify-content: center;
+                align-items: center;
+
+                h1 {
+                    float: left;
+                    text-align: center;
+                    width: 100%;
+                }
+
+                table {
+                    width: 80%;
+                    font-family: fantasy;
+                    justify-content: center;
+                    
+                    tr {
+                        width: 100%;
+                    }
+
+                }
+            }
+        
+        }
+    }
+}
