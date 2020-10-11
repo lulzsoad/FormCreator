@@ -1,7 +1,7 @@
 # FormCreator
 TypeScript project
 
-demo: <a href="https://lulzsoad.github.io/FormCreator/index.html" target="_blank">FormCreator<a>
+demo: <a href="https://lulzsoad.github.io/FormCreator/index.html" target="_blank">FormCreator</a>
 
 # Działanie aplikacji
 
